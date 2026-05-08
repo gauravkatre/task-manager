@@ -12,7 +12,7 @@ connectDB();
 
 // Middleware
 app.use(cors({
-   origin: '*',
+   origin: process.env.FRONTEND_URL,
   credentials: false,
 }));
 app.use(express.json());
