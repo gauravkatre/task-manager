@@ -4,7 +4,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   preview: {
-    allowedHosts: ['all'],
+    allowedHosts: [
+      'gallant-illumination-production.up.railway.app',
+      'all'
+    ],
     port: 8080,
     host: true,
   }
