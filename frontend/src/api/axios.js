@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
-});
+// Production mein VITE_API_URL env var se aayega (Railway backend URL)
+// Local mein vite proxy use hoga (/api -> localhost:5000)
+const baseURL = import.meta.env.VITE_API_URL || '/api';
 
-// Attach token to every request
+const API = axios.create({ baseURL });
+
+// Attach JWT token to every request
 API.interceptors.request.use((config) => {
   const user = JSON.parse(localStorage.getItem('user') || 'null');
   if (user?.token) {
@@ -13,7 +15,7 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle 401 globally
+// Handle 401 globally — token expired ya invalid
 API.interceptors.response.use(
   (res) => res,
   (error) => {
